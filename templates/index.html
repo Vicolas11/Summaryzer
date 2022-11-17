@@ -1,90 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  
-  <title>Summaryzer</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-  <!-- Favicons -->
-	<link href='static/img/favicon.ico' rel="icon">
-	<link href='static/img/apple-touch-icon.png' rel="apple-touch-icon">
+    <title>Summaryzer</title>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/vendor/simple-line-icons/css/simple-line-icons.css">
-  <link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-<body>
-  <header>
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand ml-7" href="#">SummerizerApp</a>
-    </nav>  
-  </header> 
-  <div class="jumbotron">
-    <div class="topic">
-      <h2 class="display-4">Generating  Summaries From Scientific Texts.</h2>
-      <p class="lead">A Web app that uses machine learning model and natural language processing techniques to summarize scientific articles</p>
-      <p class="lead">
-        <button class="btn btn-primary btn-lg" id="learn_more_btn">Learn more</button>
-      </p> 
-    </div>    
-  </div> 
-  <!-- Start of Main Section -->
-  <section id="main_section">
-    <form method="POST" action="/summerize" >
-      <div class="container content">
-        <div class='row'>
-              <div class="col-md-6 m-0 p-0">
-                <h3 class="text-center">Raw Text</h3>
-                <div class="context-box context-box-1 border-top" id="content-raw" contenteditable="true"> 
+    <!-- Favicons -->
+    <link href="static/img/favicon.ico" rel="icon" />
+    <link href="static/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="static/vendor/simple-line-icons/css/simple-line-icons.css"
+    />
+    <link
+      href="static/css/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand ml-7" href="#">SummerizerApp</a>
+      </nav>
+    </header>
+    <div class="jumbotron">
+      <div class="topic">
+        <h2 class="display-4">Generating Summaries From Scientific Texts.</h2>
+        <p class="lead">
+          A Web app that uses machine learning model and natural language
+          processing techniques to summarize scientific articles
+        </p>
+        <p class="lead">
+          <button class="btn btn-primary btn-lg" id="learn_more_btn">
+            Learn more
+          </button>
+        </p>
+      </div>
+    </div>
+    <!-- Start of Main Section -->
+    <section id="main_section">
+      <form method="POST">
+        <div class="container content">
+          <div class="row">
+            <div class="col-md-6 m-0 p-0">
+              <h3 class="text-center">Raw Text</h3>
+              <div
+                class="context-box context-box-1 border-top"
+                id="content-raw"
+                contenteditable="true"
+              ></div>
+              <div class="row d-flex justify-content-between item-align-center mr-4 pl-2">
+                <div class="col">
+                  <strong><h6 id="len_raw_text">0 word</h6></strong>
                 </div>
-                <div class="row d-flex justify-content-between mr-5 pl-2">
-                    <div class="col">
-                      <strong><h6 id="len_raw_text">0 word</h6></strong>
-                    </div>
-                    <div>
-                      <button class="btn btn-danger rounded-5 mr-2" type="reset" id="reset-btn">Clear</button>
-                      <button class="btn btn-primary rounded-5" id="summerized-btn" type="submit">Summerized</button>
-                      <button class="d-none btn btn-primary" type="button" id="processing-btn" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Summerizing...
-                      </button>
-                    </div>
+                <div class="d-flex row">
+                  <div class="d-flex row sum_len">
+                    <label for="sumnum" style="font-size: 1rem; margin-right: .3rem;">Summary Length</label>
+                    <input type="number" id="sumnum" style="width: 20%" />
+                  </div>      
+                  <button
+                    class="btn btn-danger rounded-5 mr-2"
+                    type="reset"
+                    id="reset-btn"
+                  >
+                    Clear
+                  </button>
+                  <button
+                    class="btn btn-primary rounded-5"
+                    id="summerized-btn"
+                    type="submit"
+                  >
+                    Summerized
+                  </button>
+                  <button
+                    class="d-none btn btn-primary"
+                    type="button"
+                    id="processing-btn"
+                    disabled
+                  >
+                    <span
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Summerizing...
+                  </button>
                 </div>
               </div>
-              <div class="col-md-6 m-0 p-0">
-                <h3 class="text-center">Summarized Text</h3>
-                <div class="context-box context-box-2 border-top" id="content-summerized" contenteditable="true"> 
+            </div>
+            <div class="col-md-6 m-0 p-0">
+              <h3 class="text-center">Summarized Text</h3>
+              <div
+                class="context-box context-box-2 border-top"
+                id="content-summerized"
+                contenteditable="true"
+              ></div>
+              <div class="row d-flex justify-content-between pl-3 pr-3">
+                <div class="col">
+                  <strong><h6 id="words_count">0 word</h6></strong>
                 </div>
-                <div class="row d-flex justify-content-between pl-3 pr-3">
-                  <div class="col">
-                    <strong><h6 id="words_count">0 word</h6></strong>
-                  </div>                  
-                  <div class="col">
-                    <p id="exec_time"></p>
-                  </div>
-                  <div>
-                    <button class="btn btn-primary" id="copy_btn" type="button"><i class="fas fa-copy"></i></button>
-                    <div id="copied">Copied</div>                   
-                  </div>
+                <div class="col">
+                  <p id="exec_time"></p>
+                </div>
+                <div>
+                  <button class="btn btn-primary" id="copy_btn" type="button">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <div id="copied">Copied</div>
                 </div>
               </div>
+            </div>
           </div>
-      </div>  
-    </form>      
-  </section> 
-  <!-- End -->
+        </div>
+      </form>
+    </section>
+    <!-- End -->
 
-   
-<footer id="footer">
-  
-  <div class="container">
-      <!-- 
+    <footer id="footer">
+      <div class="container">
+        <!-- 
       <ul class="list-inline list-social">
           <li class="list-inline-item social-twitter">
             <a href="https://twitter.com/am_vicolas">
@@ -108,9 +164,12 @@
           </li>
         </ul>
         -->
-      <p>&copy; Summerizer with NLTK 2022 | All Rights Reserved | Final Year Project</p>
-    </div>
-  </footer>
+        <p>
+          &copy; Summerizer with NLTK 2022 | All Rights Reserved | Final Year
+          Project
+        </p>
+      </div>
+    </footer>
 
     <!--  Scripts-->
     <!-- JavaScript Bundle with Popper -->

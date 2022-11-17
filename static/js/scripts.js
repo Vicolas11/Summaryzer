@@ -45,8 +45,10 @@
     $('#summerized-btn').click(function(e) {
       e.preventDefault();     
       var content = $('.context-box-1').text();
+      var sumnum = $('#sumnum').val();
+      console.log("SUM == ", sumnum)
       var count = $('.context-box-1').text().replace(/\s+/g, '').length;
-      var dataJson = JSON.stringify({'rawtext': content});
+      var dataJson = JSON.stringify({'rawtext': content, "sumnum": sumnum});
       // Check TextBox is not Blank     
       if (count > 0) {
         $.ajax({

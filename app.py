@@ -1,14 +1,17 @@
-from __future__ import unicode_literals
-from flask import Flask,render_template,url_for,request, jsonify
-from nltk_summarization import nltk_summarizer
-import time
+
+from flask import Flask,render_template, request, jsonify
+import time, textrank
 
 app = Flask(__name__)
+
+def customTextRank(raw_text, sum_len=100):
+    textrank.setup_environment()
+    summary = textrank.extract_sentences(raw_text, summary_length=sum_len)
+    return summary
 
 @app.route('/')
 def index():
 	return render_template('index.html')
-
 
 @app.route('/compare_summary')
 def compare_summary():
@@ -17,11 +20,13 @@ def compare_summary():
 
 @app.route('/summerize',methods=['GET','POST'])
 def summerizer():
-	try:
+	try:		
 		start = time.time()
 		if request.method == 'POST':
-			rawtext = request.json['rawtext']		
-			final_summary_nltk = nltk_summarizer(rawtext)
+			rawtext = request.json['rawtext']
+			sumnum = request.json['sumnum'] or 100
+			final_summary_nltk = customTextRank(rawtext, int(sumnum))
+			# final_summary_nltk = nltk_summarizer(rawtext)
 			len_summary = len(f'{final_summary_nltk}'.split(" "))
 			end = time.time()
 			final_time = end-start
@@ -30,11 +35,9 @@ def summerizer():
 		print("Error", e)
 		return jsonify({'status': f'{e}'})
 
-
 @app.route('/about')
 def about():
 	return render_template('index.html')
-
 
 if __name__ == '__main__':
 	app.run(debug=True)

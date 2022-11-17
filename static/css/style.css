@@ -110,6 +110,12 @@ section div.context-box-2 {
   font-size: inherit;
 }
 
+.sum_len {
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
 #copied {
   background-color: rgba(0, 0, 0, 0.5);
   color: #F5F5F5;
