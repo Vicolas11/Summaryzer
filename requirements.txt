@@ -2,9 +2,9 @@ Flask==2.0.3
 gunicorn==20.1.0
 Jinja2==3.0.3
 editdistance==0.4
+wheel==0.38.3
 networkx>=1.11
+nltk>=3.2.1
 textrank
 MarkupSafe==2.1.0
-nltk==3.2.1
 numpy>=1.11.2
-editdistance==0.4
